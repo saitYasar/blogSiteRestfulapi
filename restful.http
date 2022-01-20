@@ -11,3 +11,17 @@ Content-Type: application/json
   "yas": 32,
   "userName": "emrealtunbilek"
 }
+
+###
+PATCH  {{BASE_URL}}/users/5555
+Content-Type: application/json
+
+{
+ 
+  "isim":"emmre2",
+  "yas": 32,
+  "userName": "emrealtunbilek"
+}
+###
+DELETE  {{BASE_URL}}/users/5555
+Content-Type: application/json
