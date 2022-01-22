@@ -1,8 +1,10 @@
 const express = require('express');
 const { route } = require('express/lib/application');
 const router = express.Router();
+const User = require('../models/userModel'); //
 
-router.get('/' ,(req,res) => {
+router.get('/' , async (req,res) => {
+    const tumUserlar = await User.find({}).then;
     res.json({mesaj:"tüm userlar listenecek"});
 })
 ;
