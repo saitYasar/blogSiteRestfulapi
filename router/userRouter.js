@@ -38,6 +38,20 @@ router.post('/' , async (req,res,next) => {
     }
     
 });
+
+router.post('/giris', async (req, res, next) => {
+
+  try {
+    const user = await User.girisYap(req.body.email, req.body.sifre);
+    res.json(user);
+    
+   } catch (hata) {
+    next(hata);
+    
+    }
+});
+
+
 router.patch('/:id', async (req,res,next) => {
     delete req.body.createdAt;
     delete req.body.updatedAt;

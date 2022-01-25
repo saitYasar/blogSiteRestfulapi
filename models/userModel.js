@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema; 
 const Joi = require('@hapi/joi');
+var createError = require('http-errors')
+const bcrypt = require('bcrypt');
 //Mongoose'daki her şey bir Şema ile başlar.
 // Her şema bir MongoDB koleksiyonuyla eşleşir ve bu koleksiyondaki belgelerin şeklini tanımlar.
 
@@ -35,6 +37,7 @@ const UserSchema = new Schema({
     sifre: {
         type: String,
         required:true,
+        minlength: 6,
         trim: true,
     }
     }, { collection:'kullanıcılar' , timestamps: true}); 
@@ -44,7 +47,7 @@ const UserSchema = new Schema({
         isim: Joi.string().min(3).max(50).trim(),
         userName: Joi.string().min(3).max(50).trim(),
         email: Joi.string().min(3).max(50).trim().email(),
-        sifre : Joi.string().trim()
+        sifre : Joi.string().trim().min(6)
         // ya error gönderecek yada data ikisinden biri dolu oluyıor
 
 
@@ -75,6 +78,37 @@ const UserSchema = new Schema({
         delete user.__v;
         return user;
         // kullanıcıya giden jsonu düzenledik. hertülü buraya uğruyor.
+    }
+    UserSchema.statics.girisYap =  async (email, sifre) => {
+
+
+
+
+        const {error, value} = schema.validate({email,sifre});
+
+        if (error) {
+            throw createError(400, "Gİrilen email/şifre hatal");
+
+            
+        }
+        const user = await User.findOne({ email});
+        if (!user) {
+            throw createError(400,"girilem email/sifre hatalı" );
+
+
+            
+        } 
+            const sifreKontrol = await bcrypt.compare(sifre, user.sifre);
+            if (!sifreKontrol) {
+                throw createError(400,"girilem email/sifre hatalı" );
+                
+            }
+            return user;
+
+            
+        
+
+
     }
 
 
