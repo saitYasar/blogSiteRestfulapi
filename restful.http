@@ -11,22 +11,21 @@ Content-Type: application/json
 
 {
  
-  "isim":"emre210",
-  "email": "emrealtunbilek210@gmail.com",  
-  "userName": "emrealtunbilek210",
+  "isim":"ssdsds ",
+  "email": "emrealtunbilekdsds21s0m",  
+  "userName": "emrealtunbilek2101",
   "sifre" : "123456"
 }
 
 ###
-PATCH  {{BASE_URL}}/users/61ec8f5caecd5544d5c1e3fb
+PATCH  {{BASE_URL}}/users/61ef2c19c2efb3be3102bdc6
 Content-Type: application/json
 
 {
  
-  "isim":"emre",
-  "yas": 30,
-  "userName": "emrealtunbilek30"
+  "id" : "61ef2c19 ",
+  "userName": "emrealtunbilek2201"
 }
 ###
-DELETE  {{BASE_URL}}/users/61ec88c9cf3b726017a87d15
+DELETE  {{BASE_URL}}/users/61ec8f5caecd5544d5c1e3fb
 Content-Type: application/json
