@@ -17,6 +17,15 @@ app.get('/', (req,res) => {
     res.status(200).json({'mesaj': 'hoşgeldiniz'})
 }); // ilk sayfa deneme amaçlı
 app.use(hataMiddleWare);
+
+
+
+
+
+
+
+
+
 app.listen(3000, () => {
     console.log('server ayağa kalktı');
 })
