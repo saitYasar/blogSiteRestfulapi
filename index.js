@@ -1,6 +1,7 @@
 const express = require('express'); // serverı ayağa kaldırıyoruz.
 require('./database/dataBase') // mongoose bağlantısını yapıyoruz.
 const hataMiddleWare = require('./middleware/hataMiddleware') // hataları yakalamak için mw.
+const jwt = require('jsonwebtoken');
 
 const userRouter = require('./router/userRouter') // routerları userRoutera tanımlıyoruz.
 const app = express();
@@ -17,6 +18,8 @@ app.get('/', (req,res) => {
     res.status(200).json({'mesaj': 'hoşgeldiniz'})
 }); // ilk sayfa deneme amaçlı
 app.use(hataMiddleWare);
+
+ 
 
 
 

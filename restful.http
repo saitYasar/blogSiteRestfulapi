@@ -1,7 +1,9 @@
 @BASE_URL = http://localhost:3000/api
 
 
-get {{BASE_URL}}/users
+GET  {{BASE_URL}}/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWYxZDU4ZmY3NzFkOTg0ZmM2N2Y0OTIiLCJpYXQiOjE2NDMyMzk3MjAsImV4cCI6MTY0MzI0MzMyMH0.d1FQDnkZrhNs1DULI36VmtA5IhGbBoH4kbaBjGw9Urg
+
 ###
 
 
@@ -11,10 +13,11 @@ Content-Type: application/json
 
 {
  
-  "isim":"sait",
-  "email": "sait@gmail.com",  
-  "userName": "emssddb",
+  "isim":"sasdisdsdt",
+  "email": "saitds1sdsdsd2@gmail.com",  
+  "userName": "emsdsssdsdsdddgfb",
   "sifre" : "2101133"
+  
 }
 ###
 
@@ -26,7 +29,7 @@ Content-Type: application/json
 {
  
   
-  "email": "sait@gmail.com",  
+  "email": "saitds1sdsdsd2@gmail.com",  
   "sifre" : "2101133"
 }
 
@@ -40,9 +43,25 @@ Content-Type: application/json
   "sifre": "2101133sd"
 }
 ###
+DELETE  {{BASE_URL}}/users/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWYxZTJmYWM1MjAyNTc5Nzk0Njg3MzkiLCJpYXQiOjE2NDMyNDIyNTIsImV4cCI6MTY0MzI0NTg1Mn0.QPrcYOGBG3fmjREtlbb3voNhtFbIqUgesDQ73-2XOWY
+###
 DELETE  {{BASE_URL}}/users/61f0150784a53997976bb2b3
 Content-Type: application/json
 
 
+###
+PATCH  {{BASE_URL}}/users/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWYxZDU4ZmY3NzFkOTg0ZmM2N2Y0OTIiLCJpYXQiOjE2NDMyMzg4MTIsImV4cCI6MTY0MzI0MjQxMn0.uy9jlnfwCwKVf7YB25XqFlcG4YfFluTygkPrwU9y1x0
+{
+  "isim": "saityadssdsar",
+  "sifre": "210113sdsd3"
+}
+###
 
-61ef256a135b07be98935f2d
+DELETE  {{BASE_URL}}/users/deleteAll
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWYxZDU4ZmY3NzFkOTg0ZmM2N2Y0OTIiLCJpYXQiOjE2NDMyMzg4MTIsImV4cCI6MTY0MzI0MjQxMn0.uy9jlnfwCwKVf7YB25XqFlcG4YfFluTygkPrwU9y1x0
+###

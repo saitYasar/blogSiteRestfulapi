@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const Joi = require('@hapi/joi');
 var createError = require('http-errors')
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 //Mongoose'daki her şey bir Şema ile başlar.
 // Her şema bir MongoDB koleksiyonuyla eşleşir ve bu koleksiyondaki belgelerin şeklini tanımlar.
 
@@ -39,7 +40,12 @@ const UserSchema = new Schema({
         required:true,
         minlength: 6,
         trim: true,
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
     }
+
     }, { collection:'kullanıcılar' , timestamps: true}); 
 
     const schema = Joi.object({
@@ -53,6 +59,16 @@ const UserSchema = new Schema({
 
 
     });
+    UserSchema.methods.generateToken = async function () {
+        const girisYapanUser = this;
+        const token = await jwt.sign({_id:girisYapanUser._id} , 
+            'secretkey', {expiresIn: '1h'}
+            );
+        return token;
+    }
+
+
+
 
 
 
