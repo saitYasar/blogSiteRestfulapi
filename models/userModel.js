@@ -2,30 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema; 
 const Joi = require('@hapi/joi');
 var createError = require('http-errors')
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 //Mongoose'daki her şey bir Şema ile başlar.
 // Her şema bir MongoDB koleksiyonuyla eşleşir ve bu koleksiyondaki belgelerin şeklini tanımlar.
 
 const UserSchema = new Schema({
-    isim: {
-        type: String,
-        required: true,
-        trim: true,
-        minlength: 3,
-        maxlength: 50 
-    },
-    userName: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-        lowercase: true,
-        minlength: 3,
-        maxlength: 50,
-     
-
-    } ,
     email: {
         type :String,
         required: true,
@@ -35,7 +16,7 @@ const UserSchema = new Schema({
 
 
     },
-    sifre: {
+    password: {
         type: String,
         required:true,
         minlength: 6,
@@ -44,17 +25,14 @@ const UserSchema = new Schema({
     isAdmin: {
         type: Boolean,
         default: false
-    }
-
+    },
     }, { collection:'kullanıcılar' , timestamps: true}); 
 
     const schema = Joi.object({
             
-        isim: Joi.string().min(3).max(50).trim(),
-        userName: Joi.string().min(3).max(50).trim(),
         email: Joi.string().min(3).max(50).trim().email(),
-        sifre : Joi.string().trim().min(6)
-        // ya error gönderecek yada data ikisinden biri dolu oluyıor
+        sifre : Joi.string().trim().min(6),
+        isAdmin: Joi.boolean(),
 
 
 
@@ -87,10 +65,9 @@ const UserSchema = new Schema({
 
     UserSchema.methods.toJSON = function () {
         const user = this.toObject();
-        delete user._id;
         delete user.createdAt;
         delete user.updatedAt;
-        delete user.sifre;
+        delete user.password;
         delete user.__v;
         return user;
         // kullanıcıya giden jsonu düzenledik. hertülü buraya uğruyor.
@@ -100,7 +77,7 @@ const UserSchema = new Schema({
 
 
 
-        const {error, value} = schema.validate({email,sifre});
+        const {error, value} = schema.validate({email,password});
 
         if (error) {
             throw createError(400, "Gİrilen email/şifre hatal");
@@ -114,12 +91,6 @@ const UserSchema = new Schema({
 
             
         } 
-            const sifreKontrol = await bcrypt.compare(sifre, user.sifre);
-            if (!sifreKontrol) {
-                throw createError(400,"girilem email/sifre hatalı" );
-                
-            }
-            return user;
 
             
         
