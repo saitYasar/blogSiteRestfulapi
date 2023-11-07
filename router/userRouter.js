@@ -6,6 +6,8 @@ var createError = require('http-errors') // eklenti hata fırlatma kolaylaştır
 const authMiddleware = require('../middleware/authMiddleware');
 const adminMiddleware = require('../middleware/adminMiddleware');
 const jwt = require('jsonwebtoken');
+const Basket = require('../models/basketModel')
+
 
 
 
@@ -17,8 +19,10 @@ router.post('/signup', async (req, res) => {
     try {
         await newItem.save();
         const user = await User.findOne({ email });
-        console.log(user);
-    
+        const newBasket = new Basket({
+            'owner' :  user._id
+        })
+        await newBasket.save()
         const token = jwt.sign({ user }, 'gizliAnahtar', { expiresIn: '1h' });
         const refreshToken = jwt.sign({ user }, 'gizliAnahtar');
     
@@ -36,7 +40,7 @@ router.post('/signup', async (req, res) => {
 
 router.post('/signin', async (req, res) => {
     const { email, password } = req.body;
-    console.log('sait');
+    console.log(req.body);
     const user = await User.findOne({ email });
     console.log(user);
 
@@ -71,7 +75,7 @@ router.get('/me' , async (req,res) => {
         res.json(error)
         console.error('Token çözme hatası: ' + error.message);
       }
-  })
+})
 
 
 

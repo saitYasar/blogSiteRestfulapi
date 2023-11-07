@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken');
 
 const userRouter = require('./router/userRouter') // routerları userRoutera tanımlıyoruz.
 const productsRouter = require('./router/productRouter') // routerları userRoutera tanımlıyoruz.
+const basketRouter = require('./router/basketRouter') // routerları userRoutera tanımlıyoruz.
+
+
 const app = express();
 const cors = require('cors');
 const corsOptions = {
@@ -18,6 +21,7 @@ const corsOptions = {
 app.use(express.json()); // json okumak için mw.
 app.use(express.urlencoded({extended: true})) // bodyler parse olması için mw.
 app.use('/api/users', userRouter ); 
+app.use('/api/basket', productsRouter ); 
 app.use('/api/products', productsRouter ); 
 
 
